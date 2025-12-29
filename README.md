@@ -71,7 +71,7 @@ Decluttering and organizing living spaces is a common challenge that leaves many
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/tidymind-ai.git
+   git clone https://github.com/VijayAdithyaBK/tidymind-ai.git
    cd tidymind-ai
    ```
 
