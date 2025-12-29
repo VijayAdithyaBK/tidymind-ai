@@ -1,0 +1,7 @@
+{
+  "name": "TidyMind AI",
+  "description": "Upload photos of your messy rooms and get intelligent, AI-powered organization, decluttering, and aesthetic suggestions to transform your space.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
