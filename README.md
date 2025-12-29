@@ -199,7 +199,7 @@ This project is available under the MIT License. Feel free to use it for persona
 
 ### ⭐ Star this repo if you find it helpful!
 
-**Made with ❤️ and 🖍️ by Vijay Adithya B K**
+© 2025 Vijay Adithya B K • [GitHub](https://github.com/VijayAdithyaBK) • [LinkedIn](https://www.linkedin.com/in/vijayadithyabk/)
 
 [Back to Top](#-tidymind-ai)
 
