@@ -1,38 +1,21 @@
+<a name="readme-top"></a>
 <div align="center">
 
 # 🧹 TidyMind AI
 
 ### AI-Powered Room Organization & Decluttering Assistant
-**Built by [Vijay Adithya B K](https://github.com/VijayAdithyaBK)**
+**Your personal AI decluttering coach that turns messy rooms into organized sanctuaries.**
 
 [![Built with React](https://img.shields.io/badge/React-19.2-61DAFB?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![Powered by Gemini](https://img.shields.io/badge/Gemini-AI-8E75FF?logo=google)](https://ai.google.dev/)
 [![Vite](https://img.shields.io/badge/Vite-6.2-646CFF?logo=vite)](https://vitejs.dev/)
 
-[GitHub Repository](https://github.com/VijayAdithyaBK/tidymind-ai) • [Report Bug](https://github.com/VijayAdithyaBK/tidymind-ai/issues) • [Request Feature](https://github.com/VijayAdithyaBK/tidymind-ai/issues)
+[Report Bug](https://github.com/VijayAdithyaBK/tidymind-ai/issues) · [Request Feature](https://github.com/VijayAdithyaBK/tidymind-ai/issues)
 
 </div>
 
 ---
-
-## 🎯 Overview
-
-**TidyMind AI** transforms the overwhelming task of room organization into an achievable, step-by-step action plan. Simply upload a photo of your messy space, and our AI generates personalized decluttering strategies, organization tips, and aesthetic improvements—all delivered through an intuitive chalkboard-themed interface.
-
-### ✨ Key Features
-
-- 📸 **Smart Image Analysis** - Upload photos and receive instant, AI-powered room organization insights
-- 📝 **Step-by-Step Action Plans** - Get clear, actionable tasks broken down by priority and time estimates
-- 📊 **Progress Tracking** - Upload "after" photos to compare your progress and get a detailed report card
-- 🎨 **Aesthetic Suggestions** - Receive tailored recommendations for color schemes, furniture placement, and décor
-- 💾 **History Management** - Save analyses for future reference with local storage
-- 🔒 **100% Private** - All processing uses your own Gemini API key; no data is stored externally
-- 🎓 **Guided Onboarding** - Interactive tour helps new users get started quickly
-
----
-
-
 
 ## 💡 Problem Statement
 
@@ -43,6 +26,44 @@ Decluttering and organizing living spaces is a common challenge that leaves many
 - Generate personalized, actionable organization plans
 - Track progress through before/after image comparisons
 - Provide motivation and validation through gamified scoring
+
+---
+
+## 🎯 Overview
+
+**TidyMind AI** transforms the overwhelming task of room organization into an achievable, step-by-step action plan. Simply upload a photo of your messy space, and our AI generates personalized decluttering strategies, organization tips, and aesthetic improvements—all delivered through an intuitive chalkboard-themed interface.
+
+---
+
+## 📸 Usage Workflow
+
+### 1. Upload Room Photo
+Users upload a photo of their messy room through an intuitive drag-and-drop interface.
+
+### 2. AI Analysis
+Review the generated 3-step action plan:
+- **Decluttering Phase**: What to throw away or move.
+- **Organization Phase**: Where to put things.
+- **Aesthetic Phase**: How to make it look good.
+
+### 3. Progress Tracking
+Upload an "after" photo to:
+- Verify it's the same room
+- Get a detailed score (0-100)
+- See improvements and remaining tasks
+- Celebrate achievements with confetti! 🎉
+
+---
+
+## ✨ Key Features
+
+- 📸 **Smart Image Analysis** - Upload photos and receive instant, AI-powered room organization insights
+- 📝 **Step-by-Step Action Plans** - Get clear, actionable tasks broken down by priority and time estimates
+- 📊 **Progress Tracking** - Upload "after" photos to compare your progress and get a detailed report card
+- 🎨 **Aesthetic Suggestions** - Receive tailored recommendations for color schemes, furniture placement, and décor
+- 💾 **History Management** - Save analyses for future reference with local storage
+- 🔒 **100% Private** - All processing uses your own Gemini API key; no data is stored externally
+- 🎓 **Guided Onboarding** - Interactive tour helps new users get started quickly
 
 ---
 
@@ -57,6 +78,33 @@ Decluttering and organizing living spaces is a common challenge that leaves many
 | **State Management** | React Hooks (useState, useCallback, useEffect) |
 | **Storage** | LocalStorage for history & preferences |
 | **Deployment** | Optimized for static hosting (Vercel, Netlify, GitHub Pages) |
+
+---
+
+## 🎨 Design Philosophy
+
+**Chalkboard Classroom Theme**: The UI mimics a classroom chalkboard to make organization feel approachable and friendly—like having a helpful teacher guide you through the process.
+
+**Key Design Elements**:
+- Chalk-style typography and handwritten aesthetics
+- Teal/purple accent colors for visual hierarchy
+- Smooth animations and micro-interactions
+- Responsive design for mobile and desktop
+- Accessibility-first approach
+
+---
+
+## 📂 Project Structure
+
+```
+tidymind-ai/
+├── components/          # React components
+├── services/
+├── utils/
+├── types.ts             # TypeScript definitions
+├── App.tsx              # Main application logic
+└── index.tsx            # Entry point
+```
 
 ---
 
@@ -98,61 +146,6 @@ Decluttering and organizing living spaces is a common challenge that leaves many
 
 ---
 
-## 📸 Screenshots & Workflow
-
-### 1. Upload Room Photo
-Users upload a photo of their messy room through an intuitive drag-and-drop interface.
-
-### 2. AI Analysis
-The Gemini AI analyzes the image and generates:
-- Organization priorities
-- Step-by-step tasks with time estimates
-- Aesthetic and design suggestions
-- Color scheme recommendations
-
-### 3. Progress Tracking
-Upload an "after" photo to:
-- Verify it's the same room
-- Get a detailed score (0-100)
-- See improvements and remaining tasks
-- Celebrate achievements with confetti! 🎉
-
----
-
-## 🎨 Design Philosophy
-
-**Chalkboard Classroom Theme**: The UI mimics a classroom chalkboard to make organization feel approachable and friendly—like having a helpful teacher guide you through the process.
-
-**Key Design Elements**:
-- Chalk-style typography and handwritten aesthetics
-- Teal/purple accent colors for visual hierarchy
-- Smooth animations and micro-interactions
-- Responsive design for mobile and desktop
-- Accessibility-first approach
-
----
-
-## 📂 Project Structure
-
-```
-tidymind-ai/
-├── components/          # React components
-│   ├── Header.tsx       # Navigation and branding
-│   ├── UploadZone.tsx   # Image upload interface
-│   ├── ResultsView.tsx  # Analysis results display
-│   ├── HistoryList.tsx  # Saved analyses
-│   └── OnboardingTour.tsx # First-time user guide
-├── services/
-│   └── geminiService.ts # Gemini API integration
-├── utils/
-│   └── storageUtils.ts  # LocalStorage helpers
-├── types.ts             # TypeScript definitions
-├── App.tsx              # Main application logic
-└── index.tsx            # Entry point
-```
-
----
-
 ## 🧪 Future Enhancements
 
 - [ ] Multi-room support with room-switching interface
@@ -164,17 +157,20 @@ tidymind-ai/
 
 ---
 
-## 👨‍💻 About the Developer
+## 🤝 Contributing
 
-**Vijay Adithya B K** - Data Engineer & Full-Stack Developer
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-Passionate about building user-centric AI applications that solve real-world problems. TidyMind AI demonstrates:
-- Full-stack development expertise (React, TypeScript)
-- AI/ML integration (Gemini API)
-- UX/UI design thinking
-- Product development from concept to deployment
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
 
-**Connect with me**:
+---
+
+## 👨‍💻 Connect with me
+
 - 💼 [LinkedIn](https://www.linkedin.com/in/vijayadithyabk/)
 - 🐙 [GitHub](https://github.com/VijayAdithyaBK)
 - 🌐 [Portfolio](https://vijayadithyabk.github.io/data-nexus/)
@@ -187,20 +183,13 @@ This project is available under the MIT License. Feel free to use it for persona
 
 ---
 
-## 🙏 Acknowledgments
-
-- Google Gemini team for the powerful AI API
-- The React and Vite communities for excellent tooling
-- Open-source community for inspiration and support
-
----
-
 <div align="center">
 
 ### ⭐ Star this repo if you find it helpful!
-
-© 2025 Vijay Adithya B K • [GitHub](https://github.com/VijayAdithyaBK) • [LinkedIn](https://www.linkedin.com/in/vijayadithyabk/)
-
-[Back to Top](#-tidymind-ai)
+[Back to Top](#readme-top)
 
 </div>
+
+<p align="center">
+  <i>⚡ Crafted by Vijay Adithya B K</i>
+</p>
