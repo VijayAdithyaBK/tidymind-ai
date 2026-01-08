@@ -170,33 +170,28 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col text-slate-100">
+    <div className="min-h-screen flex flex-col bg-gray-50">
       <OnboardingTour isOpen={showOnboarding} onClose={handleCloseOnboarding} />
-      <Header />
+      <Header onOpenOnboarding={() => setShowOnboarding(true)} />
 
-      <main className="flex-grow w-full px-4 py-8 sm:px-6 lg:px-8 relative">
+      <main className="flex-grow w-full px-4 py-6 sm:px-6 sm:py-12 lg:px-8 max-w-7xl mx-auto">
 
         {/* Intro Hero - Only show when IDLE */}
         {appState === AppState.IDLE && (
-          <div className="max-w-4xl mx-auto text-center mb-16 mt-12 animate-popIn">
-            <h2 className="text-6xl md:text-7xl font-bold mb-6 text-chalk-white relative inline-block">
+          <div className="max-w-3xl mx-auto text-center mb-12 animate-fadeIn">
+            <h2 className="text-5xl md:text-6xl font-bold mb-4 text-gray-900">
               Clean Your Room!
-              <span className="absolute -bottom-2 right-0 w-full h-2 bg-teal-400/60 rounded-full transform -rotate-1"></span>
             </h2>
-            <p className="text-2xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-              Snap a photo of the mess. <br />
-              Our AI writes a <span className="text-teal-400 font-bold">Step-by-Step Plan</span> on the board for you.
+            <p className="text-lg text-gray-500 mb-10 max-w-lg mx-auto leading-relaxed">
+              Snap a photo and get an AI-powered, step-by-step organization plan.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-6 text-xl text-gray-400 mb-12">
-              <div className="flex items-center gap-2 animate-float" style={{ animationDelay: '0s' }}>
-                <CheckCircle2 size={24} className="text-teal-400" /> Instant Analysis
+            <div className="flex flex-wrap justify-center gap-6 text-sm font-medium text-gray-500 mb-12">
+              <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full">
+                <CheckCircle2 size={16} className="text-gray-900 fill-gray-900" /> Instant Analysis
               </div>
-              <div className="flex items-center gap-2 animate-float" style={{ animationDelay: '1s' }}>
-                <CheckCircle2 size={24} className="text-teal-400" /> 100% Private
-              </div>
-              <div className="flex items-center gap-2 animate-float" style={{ animationDelay: '2s' }}>
-                <CheckCircle2 size={24} className="text-teal-400" /> Super Easy
+              <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-full">
+                <CheckCircle2 size={16} className="text-gray-900 fill-gray-900" /> 100% Private
               </div>
             </div>
           </div>
@@ -204,19 +199,19 @@ const App: React.FC = () => {
 
         {/* State Management */}
         {appState === AppState.ERROR && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-popIn">
-            <div className="max-w-lg w-full p-8 bg-[#2a1b1b] border-4 border-dashed border-red-500 rounded-3xl text-center shadow-2xl">
-              <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <XCircle size={48} className="text-red-500" />
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-scaleIn">
+            <div className="max-w-md w-full p-8 card text-center">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <XCircle size={32} className="text-red-600" />
               </div>
-              <h3 className="text-3xl font-bold text-red-200 mb-4">Uh oh!</h3>
-              <p className="text-xl text-red-100 mb-8 font-sans">{error}</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Oops!</h3>
+              <p className="text-base text-gray-700 mb-6">{error}</p>
               <button
                 onClick={handleClearError}
-                className="flex items-center justify-center gap-2 mx-auto px-8 py-3 bg-red-600 hover:bg-red-500 text-white rounded-xl transition-all font-bold text-lg"
+                className="btn-primary flex items-center justify-center gap-2 mx-auto"
               >
-                <Eraser size={20} />
-                Okay, Got It
+                <Eraser size={18} />
+                Got It
               </button>
             </div>
           </div>
@@ -225,8 +220,8 @@ const App: React.FC = () => {
         {/* Upload Zone (Main or Follow-up) */}
         {(appState === AppState.IDLE || appState === AppState.ANALYZING || appState === AppState.UPLOADING_FOLLOWUP || appState === AppState.COMPARING) && (
           <div className={`transition-all duration-300 ${(appState === AppState.UPLOADING_FOLLOWUP || appState === AppState.COMPARING)
-              ? 'fixed inset-0 z-40 bg-black/90 flex flex-col items-center justify-center p-4'
-              : 'animate-slideUp'
+            ? 'fixed inset-0 z-40 bg-black/90 flex flex-col items-center justify-center p-4'
+            : 'animate-slideUp'
             }`} style={{ animationDelay: '0.2s' }}>
 
             {/* Follow up Header */}
@@ -253,9 +248,7 @@ const App: React.FC = () => {
 
             {(appState === AppState.ANALYZING || appState === AppState.COMPARING) && (
               <div className="text-center mt-8">
-                <p className="text-2xl text-teal-200 animate-pulse">
-                  {appState === AppState.COMPARING ? "Grading your work..." : "Thinking..."}
-                </p>
+                {/* Thinking text removed */}
               </div>
             )}
           </div>
@@ -286,9 +279,9 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="py-8 mt-auto border-t border-white/10">
-        <div className="max-w-5xl mx-auto px-4 text-center text-gray-500 text-lg">
-          <p>⚡ Crafted by Vijay Adithya B K</p>
+      <footer className="py-6 mt-auto border-t border-gray-200 bg-white">
+        <div className="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+          <p>⚡Crafted by Vijay Adithya B K</p>
         </div>
       </footer>
     </div>

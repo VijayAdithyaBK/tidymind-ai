@@ -1,19 +1,29 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, HelpCircle } from 'lucide-react';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onOpenOnboarding: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onOpenOnboarding }) => {
   return (
-    <header className="sticky top-0 z-50 bg-[#1a1a1a]/90 backdrop-blur-sm border-b-2 border-dashed border-white/10 pb-2 pt-4">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        <div className="flex items-center gap-3 group cursor-pointer">
-          <div className="bg-transparent border-2 border-teal-400 p-2 rounded-lg text-teal-400 group-hover:bg-teal-400 group-hover:text-[#1a1a1a] transition-all duration-300 transform group-hover:rotate-12">
-            <Sparkles size={24} />
+    <header className="sticky top-0 z-50 bg-white border-b-2 border-black sketch-shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-black text-white blob-shape flex items-center justify-center">
+            <Sparkles size={20} className="fill-current" />
           </div>
-          <h1 className="text-3xl font-bold text-white tracking-wide group-hover:text-teal-400 transition-colors">TidyMind AI</h1>
+          <h1 className="text-xl font-black text-black tracking-tight uppercase">TidyMind AI</h1>
         </div>
-        <nav className="hidden md:flex gap-8 text-xl text-gray-400">
-          <a href="#" className="hover:text-white hover:underline decoration-wavy decoration-teal-400 underline-offset-4 transition-all hover:scale-105">How it Works</a>
-          <a href="#" className="hover:text-white hover:underline decoration-wavy decoration-teal-400 underline-offset-4 transition-all hover:scale-105">About</a>
+        <nav className="flex gap-4 text-sm font-bold text-gray-900">
+          <button
+            onClick={(e) => { e.preventDefault(); onOpenOnboarding(); }}
+            className="flex items-center gap-2 hover:text-black hover:underline transition-all px-3 py-2 sm:px-4"
+            title="How it Works"
+          >
+            <HelpCircle size={20} className="fill-current text-gray-200" />
+            <span className="hidden sm:inline">How it Works</span>
+          </button>
         </nav>
       </div>
     </header>
