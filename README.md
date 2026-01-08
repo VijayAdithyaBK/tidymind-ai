@@ -69,15 +69,15 @@ Upload an "after" photo to:
 
 ## 🛠️ Technology Stack
 
-| Category | Technologies |
-|----------|-------------|
-| **Frontend** | React 19.2, TypeScript 5.8 |
-| **Build Tool** | Vite 6.2 |
-| **AI/ML** | Google Gemini API (@google/genai) |
-| **UI/UX** | Lucide React (icons), Canvas Confetti (celebrations) |
-| **State Management** | React Hooks (useState, useCallback, useEffect) |
-| **Storage** | LocalStorage for history & preferences |
-| **Deployment** | Optimized for static hosting (Vercel, Netlify, GitHub Pages) |
+| Category             | Technologies                                                 |
+| -------------------- | ------------------------------------------------------------ |
+| **Frontend**         | React 19.2, TypeScript 5.8                                   |
+| **Build Tool**       | Vite 6.2                                                     |
+| **AI/ML**            | Google Gemini API (@google/genai)                            |
+| **UI/UX**            | Lucide React (icons), Canvas Confetti (celebrations)         |
+| **State Management** | React Hooks (useState, useCallback, useEffect)               |
+| **Storage**          | LocalStorage for history & preferences                       |
+| **Deployment**       | Optimized for static hosting (Vercel, Netlify, GitHub Pages) |
 
 ---
 
@@ -132,7 +132,7 @@ tidymind-ai/
    
    Create or edit `.env.local` and add your Gemini API key:
    ```env
-   GEMINI_API_KEY=your_api_key_here
+   VITE_GEMINI_API_KEY=your_api_key_here
    ```
 
 4. **Run the development server**
@@ -142,7 +142,51 @@ tidymind-ai/
 
 5. **Open your browser**
    
-   Navigate to `http://localhost:5173` and start tidying! 🧹
+   Navigate to `http://localhost:3000` and start tidying! 🧹
+
+---
+
+## 🚀 Deployment to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### Deployment Steps
+
+1. **Enable GitHub Pages**
+   - Go to your repository → **Settings** → **Pages**
+   - Under "Build and deployment", set **Source** to **GitHub Actions**
+
+2. **Add API Key to GitHub Secrets**
+   - Go to repository → **Settings** → **Secrets and variables** → **Actions**
+   - Click **New repository secret**
+   - Name: `GEMINI_API_KEY`
+   - Value: Your Gemini API key
+   - Click **Add secret**
+
+3. **Push to Main Branch**
+   ```bash
+   git add .
+   git commit -m "Deploy to GitHub Pages"
+   git push origin main
+   ```
+   The GitHub Action will automatically build and deploy your site.
+
+4. **🔒 Secure Your API Key (IMPORTANT)**
+   
+   Since this is a client-side app, the API key will be visible in the browser. To prevent unauthorized use:
+   
+   - Go to [Google Cloud Console](https://console.cloud.google.com/)
+   - Navigate to **APIs & Services** → **Credentials**
+   - Click on your Gemini API key
+   - Under **Application restrictions**, select **Websites**
+   - Click **Add an item**, then add: `https://vijayadithyabk.github.io/tidymind-ai/*`
+   - Click **Done**, then **Save**
+   
+   This ensures your API key only works from your GitHub Pages domain.
+
+5. **Access Your Deployed Site**
+   
+   Your site will be available at: `https://yourusername.github.io/tidymind-ai/`
 
 ---
 

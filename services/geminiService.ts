@@ -2,7 +2,7 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { AnalysisResult, ComparisonResult } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
 const analysisSchema: Schema = {
   type: Type.OBJECT,
@@ -103,25 +103,25 @@ const resizeForAI = (base64Str: string): Promise<string> => {
 };
 
 const retryOperation = async <T>(operation: () => Promise<T>, maxRetries = 2): Promise<T> => {
-    let lastError;
-    for (let i = 0; i <= maxRetries; i++) {
-        try {
-            return await operation();
-        } catch (error: any) {
-            lastError = error;
-            // Retry on 500 (Internal) or 503 (Unavailable)
-            const status = error.status || (error.message && error.message.includes('500') ? 500 : 0);
-            if (status === 500 || status === 503) {
-                if (i < maxRetries) {
-                    console.warn(`Attempt ${i + 1} failed with ${status}. Retrying...`);
-                    await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1))); // Exponential backoff
-                    continue;
-                }
-            }
-            throw error;
+  let lastError;
+  for (let i = 0; i <= maxRetries; i++) {
+    try {
+      return await operation();
+    } catch (error: any) {
+      lastError = error;
+      // Retry on 500 (Internal) or 503 (Unavailable)
+      const status = error.status || (error.message && error.message.includes('500') ? 500 : 0);
+      if (status === 500 || status === 503) {
+        if (i < maxRetries) {
+          console.warn(`Attempt ${i + 1} failed with ${status}. Retrying...`);
+          await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1))); // Exponential backoff
+          continue;
         }
+      }
+      throw error;
     }
-    throw lastError;
+  }
+  throw lastError;
 };
 
 export const analyzeRoomImage = async (base64Image: string): Promise<AnalysisResult> => {
@@ -130,38 +130,38 @@ export const analyzeRoomImage = async (base64Image: string): Promise<AnalysisRes
     const cleanBase64 = resizedImage.split(',')[1] || resizedImage;
 
     const operation = async () => {
-        const response = await ai.models.generateContent({
-            model: "gemini-3-flash-preview",
-            contents: {
-                parts: [
-                {
-                    inlineData: {
-                    mimeType: "image/jpeg",
-                    data: cleanBase64
-                    }
-                },
-                {
-                    text: "Analyze this room photo. Provide a structured guide on how to declutter, organize, and improve this space. Be specific, encouraging, and practical."
-                }
-                ]
+      const response = await ai.models.generateContent({
+        model: "gemini-3-flash-preview",
+        contents: {
+          parts: [
+            {
+              inlineData: {
+                mimeType: "image/jpeg",
+                data: cleanBase64
+              }
             },
-            config: {
-                responseMimeType: "application/json",
-                responseSchema: analysisSchema,
-                systemInstruction: "You are a world-class professional organizer (like Marie Kondo meets The Home Edit). Your tone is kind, non-judgmental, but highly efficient and practical. Focus on maximizing space, reducing visual noise, and creating functional systems."
+            {
+              text: "Analyze this room photo. Provide a structured guide on how to declutter, organize, and improve this space. Be specific, encouraging, and practical."
             }
-        });
-        
-        const text = response.text;
-        if (!text) throw new Error("No response from AI");
-        return JSON.parse(text) as AnalysisResult;
+          ]
+        },
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: analysisSchema,
+          systemInstruction: "You are a world-class professional organizer (like Marie Kondo meets The Home Edit). Your tone is kind, non-judgmental, but highly efficient and practical. Focus on maximizing space, reducing visual noise, and creating functional systems."
+        }
+      });
+
+      const text = response.text;
+      if (!text) throw new Error("No response from AI");
+      return JSON.parse(text) as AnalysisResult;
     };
 
     return await retryOperation(operation);
 
   } catch (error: any) {
     console.error("Gemini Analysis Error:", error);
-    
+
     let friendlyError = "Oops! Something went wrong analyzing your room. Please try again.";
     const msg = (error.message || error.toString()).toLowerCase();
 
@@ -184,15 +184,15 @@ export const analyzeRoomImage = async (base64Image: string): Promise<AnalysisRes
 };
 
 export const compareRoomImages = async (
-  beforeImageBase64: string, 
-  afterImageBase64: string, 
+  beforeImageBase64: string,
+  afterImageBase64: string,
   previousPlan: AnalysisResult
 ): Promise<ComparisonResult> => {
   try {
     // Resize both images to minimize payload size
     const [resizedBefore, resizedAfter] = await Promise.all([
-        resizeForAI(beforeImageBase64),
-        resizeForAI(afterImageBase64)
+      resizeForAI(beforeImageBase64),
+      resizeForAI(afterImageBase64)
     ]);
 
     const cleanBefore = resizedBefore.split(',')[1] || resizedBefore;
@@ -200,13 +200,14 @@ export const compareRoomImages = async (
     const planContext = JSON.stringify(previousPlan.declutteringSteps);
 
     const operation = async () => {
-        const response = await ai.models.generateContent({
+      const response = await ai.models.generateContent({
         model: "gemini-3-flash-preview",
         contents: {
-            parts: [
+          parts: [
             { inlineData: { mimeType: "image/jpeg", data: cleanBefore } },
             { inlineData: { mimeType: "image/jpeg", data: cleanAfter } },
-            { text: `Compare these two images. Image 1 is 'Before', Image 2 is 'After'. 
+            {
+              text: `Compare these two images. Image 1 is 'Before', Image 2 is 'After'. 
                     The goal was to follow this decluttering plan: ${planContext}.
                     
                     First, check if Image 2 is the same room as Image 1. 
@@ -215,20 +216,20 @@ export const compareRoomImages = async (
                     Furniture might be moved, lighting changed, or camera angles shifted. 
                     Unless it is unequivocally a different room type (e.g. Bathroom vs Kitchen), ASSUME it is the same room.
                     
-                    If it is the same room, analyze the progress. Did they complete the steps?` 
+                    If it is the same room, analyze the progress. Did they complete the steps?`
             }
-            ]
+          ]
         },
         config: {
-            responseMimeType: "application/json",
-            responseSchema: comparisonSchema,
-            systemInstruction: "You are a supportive cleaning coach. Prioritize recognizing effort. Be extremely generous when verifying room identity—cleaning changes everything. Focus on the positive progress made."
+          responseMimeType: "application/json",
+          responseSchema: comparisonSchema,
+          systemInstruction: "You are a supportive cleaning coach. Prioritize recognizing effort. Be extremely generous when verifying room identity—cleaning changes everything. Focus on the positive progress made."
         }
-        });
+      });
 
-        const text = response.text;
-        if (!text) throw new Error("No response from AI");
-        return JSON.parse(text) as ComparisonResult;
+      const text = response.text;
+      if (!text) throw new Error("No response from AI");
+      return JSON.parse(text) as ComparisonResult;
     };
 
     return await retryOperation(operation);
