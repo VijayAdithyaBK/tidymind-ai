@@ -179,10 +179,11 @@ This project is configured for automatic deployment to GitHub Pages using GitHub
    - Navigate to **APIs & Services** → **Credentials**
    - Click on your Gemini API key
    - Under **Application restrictions**, select **Websites**
-   - Click **Add an item**, then add: `https://vijayadithyabk.github.io/*`
+   - Click **Add an item**, then add: `https://<YOUR-USERNAME>.github.io/tidymind-ai/*`
+   - **Important**: Also add `https://<YOUR-USERNAME>.github.io/*` (some browsers like Firefox strip the path).
    - Click **Done**, then **Save**
    
-   > **Note:** Using `https://vijayadithyabk.github.io/*` (Origin-based restriction) ensures compatibility across all browsers (Chrome, Safari, Firefox), as some browsers strip path information from the referrer for privacy.
+   This ensures your API key only works from your GitHub Pages domain.
 
 5. **Access Your Deployed Site**
    
